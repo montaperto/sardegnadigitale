@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://sardegnadigitale.herokuapp.com/'),
+    'url' => env('APP_URL', 'https://www.shardana.xyz'),
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +103,7 @@ return [
     |
     */
 
-    'key' => 'w6qWUd+TcBM2KDLfpCobMG9OpLrY5uZzXjblmXkYWrs=',
+    'key' => 'base64:nDFOVMyBGYjVQ9XWFCNKtAX7RJYSM9ltKr2NUTjSmrE=',
 
     'cipher' => 'AES-256-CBC',
 
