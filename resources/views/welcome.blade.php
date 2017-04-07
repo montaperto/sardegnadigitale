@@ -13,7 +13,7 @@
 
 <header role="banner" class="navbar navbar-fixed-top navbar-default">
     <div class="navbar-header">
-      <a class="navbar-brand pull-left" href="index.html">Sardinia Wallet</a>
+      <a href="index.html"><img src="img/icons/shardana.png" height="50px" style="padding-top: -20px"></a>
       <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-right"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
     </div>
     <div class="navbar-default side-collapse in">
