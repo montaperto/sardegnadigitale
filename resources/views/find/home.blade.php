@@ -42,6 +42,8 @@
       }
 
       .wrapper{min-height:100%; position:relative}
+
+
     </style>
 
 </header>
@@ -127,8 +129,8 @@
   var map;
   var markers = [];
   var places = @php echo json_encode($places); @endphp;
-  
-
+  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var flag = 0;
   console.log(places);
 
   var locations = new Array();
@@ -145,65 +147,71 @@
         for(var i=0; i<places.length; i++) {
           locations[locations.length] = new google.maps.LatLng(places[i].place_latitude, places[i].place_longitude);
           bounds.extend(new google.maps.LatLng(places[i].place_latitude, places[i].place_longitude));
+
+          if(flag == 0){
+            var marker = createMarker(i, places[i]);
+          }
+          
+          
+          //markers[markers.length] = marker;
         }
 
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        flag = 1;
 
+
+        /*
         markers = locations.map(function(location, i) {
           return new google.maps.Marker({
             position: location,
             label: labels[i % labels.length]
           });
         });
-
-        locations = [];
+  */
+        map.fitBounds(bounds);
 
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
-        map.fitBounds(bounds);
 
   }
 
 
 
 
-
-
-
-
-
         // Adds a marker to the map and push to the array.
-      function addMarker(location) {
-        var marker = new google.maps.Marker({
-          position: location,
-          map: map
-        });
-        markers.push(marker);
+      function createMarker(i, place) {
+
+          var location = new google.maps.LatLng(place.place_latitude, place.place_longitude)
+
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            label: labels[i % labels.length]
+          });
+          markers.push(marker);
+          
+          var contentString = "<div class='col-xs-12'>" +
+          "<div class='thumbnail'>" +
+            "<img src='img/places/no_photo.jpg' alt='" + place.place_name + "'>" +
+            "<div class='caption'>" +
+              "<h5> " + place.place_name + " </h5>" +
+              "<p>Beach</p>" +
+              "<p><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span></p>" +
+            "</div>" +
+          "</div>" +
+        "</div>";
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 200,
+            maxHeight: 200,
+            paddingRight: 0,
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
       }
 
-      // Sets the map on all markers in the array.
-      function setMapOnAll(map) {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-        }
-      }
-
-      // Removes the markers from the map, but keeps them in the array.
-      function clearMarkers() {
-        setMapOnAll(null);
-      }
-
-      // Shows any markers currently in the array.
-      function showMarkers() {
-        setMapOnAll(map);
-      }
-
-      // Deletes all markers in the array by removing references to them.
-      function deleteMarkers() {
-        clearMarkers();
-        markers = [];
-      }
 
 </script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
