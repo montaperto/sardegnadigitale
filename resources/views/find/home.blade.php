@@ -49,12 +49,7 @@
 </header>
 
 <body>
-
-
-
-
 <div class="container" style="padding-bottom: 50px;">  
-
 
 <div class="row" style="padding-bottom: 20px;">
   <div class="col-xs-6">
@@ -83,7 +78,7 @@
   @foreach($places as $place)
         <div class="col-xs-6 col-md-4 col-lg-3">
           <div class="thumbnail">
-            <img src="img/places/no_photo.jpg" alt="Cala Goloritze">
+            <a href="place/{{ $place->place_id }}"><img src="img/places/no_photo.jpg" alt="{{ $place->place_name }}"></a>
             <div class="caption">
               <h5>{{ $place->place_name }}</h5>
               <p>Beach</p>
@@ -104,124 +99,24 @@
       <div class="alert alert-wallet fixed-bottom text-center" style="margin-bottom: 0px; color-background: black;" id="button-map" role="alert">Show Map <span class="glyphicon glyphicon-map-marker"></span></div>
   </div>
 
-  
-<!--
-  <div class="footer navbar-bottom">
-      <div class="panel-footer"><div class="text-center">© Andrea Montaperto - Developed by Andrea Montaperto</div></div>
-  </div>
--->
 </body>
-<script>
-  function openMap(){
-    if(document.getElementById('div-map').style.display == "block"){
-      document.getElementById('div-map').style.display = "none";
-      document.getElementById('button-map').innerHTML = "Show map <span class='glyphicon glyphicon-map-marker'></span>";
-    } else {
-      document.getElementById('div-map').style.display = "block";
-      document.getElementById('map').style.height = '100%';
-      document.getElementById('map').style.width = '100%';
-      document.getElementById("map").style.zIndex = "10000";
-      initMap();
-      document.getElementById('button-map').innerHTML = "Show results <span class='glyphicon glyphicon-th-list'></span>";
-    }
-  }
 
-  var map;
-  var markers = [];
-  var places = @php echo json_encode($places); @endphp;
-  var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  var flag = 0;
-  console.log(places);
-
-  var locations = new Array();
-
-  function initMap() {
-
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: -28.024, lng: 140.887}
-        });
-
-        var bounds = new google.maps.LatLngBounds();
-
-        for(var i=0; i<places.length; i++) {
-          locations[locations.length] = new google.maps.LatLng(places[i].place_latitude, places[i].place_longitude);
-          bounds.extend(new google.maps.LatLng(places[i].place_latitude, places[i].place_longitude));
-
-          if(flag == 0){
-            var marker = createMarker(i, places[i]);
-          }
-          
-          
-          //markers[markers.length] = marker;
-        }
-
-        flag = 1;
-
-
-        /*
-        markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
-          });
-        });
-  */
-        map.fitBounds(bounds);
-
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-
-  }
-
-
-
-
-        // Adds a marker to the map and push to the array.
-      function createMarker(i, place) {
-
-          var location = new google.maps.LatLng(place.place_latitude, place.place_longitude)
-
-          var marker = new google.maps.Marker({
-            position: location,
-            map: map,
-            label: labels[i % labels.length]
-          });
-          markers.push(marker);
-          
-          var contentString = "<div class='col-xs-12'>" +
-          "<div class='thumbnail'>" +
-            "<img src='img/places/no_photo.jpg' alt='" + place.place_name + "'>" +
-            "<div class='caption'>" +
-              "<h5> " + place.place_name + " </h5>" +
-              "<p>Beach</p>" +
-              "<p><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span></p>" +
-            "</div>" +
-          "</div>" +
-        "</div>";
-
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString,
-            maxWidth: 200,
-            maxHeight: 200,
-            paddingRight: 0,
-          });
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });
-      }
-
-
+<script type="text/javascript">
+    var map;
+    var markers = [];
+    var places = @php echo json_encode($places); @endphp;
+    var infowindow;
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var flag = 0;
+    var locations = new Array();
 </script>
+
+<script src="js/map-home.js"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKdlgHP0S40CDTGqUFAPCEogL7MPpYf_E&callback=initMap">
 </script>
-
-
-
 
 </html>
 

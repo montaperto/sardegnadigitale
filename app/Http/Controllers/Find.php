@@ -16,11 +16,15 @@ class Find extends Controller
      */
     public function index()
     {
-    	//$results = \App\Models\Place::all();
         $places = \App\Models\Place::all();
     	return view('find/home', array('places' => $places));
+    }
 
-    	//return \View::make('find/home.show');
+
+    public function place($id)
+    {
+        $place = \App\Models\Place::where('place_id', $id)->first();
+        return view('place/place', array('place' => $place));
     }
 
     /**

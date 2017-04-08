@@ -5,4 +5,15 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends Model {
     // your code
     protected $table = 'sd_places';
+
+
+
+    public function getPlaceById($id)
+    {
+    	
+    }
+
+
+
+
 }

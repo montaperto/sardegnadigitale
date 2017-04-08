@@ -18,11 +18,6 @@ Route::get('/', function () {
 
 //nome path 
 //nome controller
-Route::resource('places', 'Find');
 
-
-/*
-Route::get('places', function(){
-        $results = \App\Models\Place::all();
-        return $results;
-});*/
+Route::get('places', 'Find@index');
+Route::get('place/{id}', 'Find@place');
