@@ -15,15 +15,20 @@
 
 <header role="banner" class="navbar navbar-fixed-top navbar-default">
     <div class="navbar-header">
-      <a href="/places"><img src="../img/icons/shardana.png" height="50px" style="padding-top: -20px"></a>
+      <a href="/"><img src="../img/icons/shardana.png" height="50px" style="padding-top: -20px"></a>
       <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-right"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
     </div>
     <div class="navbar-default side-collapse in">
       <nav role="navigation" class="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-        <li class="text-center"><img src="../img/users/1.jpg" class="img-circle" alt="Andrea Montaperto" width="50"></li>
-        <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> Andrea Montaperto</a></li>
-        <li><a href="/login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+        @if (Auth::guest())
+          <li><a href="{{ route('login') }}"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
+        @else
+          <li class="text-center"><img src="../img/users/1.jpg" class="img-circle" alt="{{ Auth::user()->name }}" width="50"></li>
+          <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a></li>
+          <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        @endif
         <li style="padding-right:20px;"></li>
       </ul>
       </nav>

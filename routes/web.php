@@ -19,11 +19,11 @@ Route::get('/', function () {
 //nome path 
 //nome controller
 
+Route::get('/', 'Find@index');
 Route::get('places', 'Find@index');
 Route::get('place/{id}', 'Find@place');
-Route::get('login', 'User@login');
-Route::post('login', 'User@post_login');
 
 Auth::routes();
-
+Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'Find@index');
