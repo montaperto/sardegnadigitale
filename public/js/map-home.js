@@ -55,7 +55,7 @@
           
           var contentString = "<div class='col-xs-12'>" +
           "<div class='thumbnail'>" +
-            "<img src='img/places/no_photo.jpg' alt='" + place.place_name + "'>" +
+            "<a href='/place/" + place.place_id + "'><img src='img/places/no_photo.jpg' alt='" + place.place_name + "'></a>" +
             "<div class='caption'>" +
               "<h5> " + place.place_name + " </h5>" +
               "<p>Beach</p>" +

@@ -3,8 +3,6 @@
     <div class="container">            
 
       <div class="row text-center">
-        <label class="btn btn-primary" data-toggle="modal" data-target="#markAsVisitedModal">Mark as visited</label>
-        <label class="btn btn-primary">Mark as interesting</label>
         <h2>{{ $place->place_name }}</h2>
         <p>
           <input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false">
@@ -14,6 +12,8 @@
           <b>20</b> users have visited this place<br>
           <b>72</b> users are interested about it
         </p>
+        <label class="btn btn-primary" data-toggle="modal" data-target="#markAsVisitedModal">Mark as visited</label>
+        <label class="btn btn-primary">Mark as interesting</label>
       </div>
 
       <div class="row">
@@ -28,7 +28,7 @@
 
       <div style="margin-top: 20px;">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home">Instagram</a></li>
+          <li class="active"><a data-toggle="tab" href="#home">Photos</a></li>
           <li><a data-toggle="tab" href="#menu1">Reviews <span class="badge">2</span></a></li>
           <li><a data-toggle="tab" href="#menu2">Map</a></li>
           <li><a data-toggle="tab" href="#menu3">Video</a></li>
