@@ -21,3 +21,9 @@ Route::get('/', function () {
 
 Route::get('places', 'Find@index');
 Route::get('place/{id}', 'Find@place');
+Route::get('login', 'User@login');
+Route::post('login', 'User@post_login');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
