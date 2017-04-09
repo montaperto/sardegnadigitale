@@ -25,7 +25,7 @@
         @if (Auth::guest())
           <li><a href="{{ route('login') }}"><span class="glyphicon glyphicon-log-out"></span> Login</a></li>
         @else
-          <li class="text-center"><img src="../img/users/1.jpg" class="img-circle" alt="{{ Auth::user()->name }}" width="50"></li>
+          <li class="text-center"><img src="../img/users/no_photo.png" class="img-circle" alt="{{ Auth::user()->name }}" width="50"></li>
           <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a></li>
           <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         @endif

@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+//require 'vendor/autoload.php';
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Intervention\Image\ImageManager;
 
 class RegisterController extends Controller
 {
@@ -51,7 +52,14 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            //'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:6048',
         ]);
+
+
+
+        //$img = Image::make($data['image'])->resize(300, 300)->insert('img/watermark.png');
+
+
     }
 
     /**
@@ -62,6 +70,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //$img = Image::make($data['image'])->resize(300, 300)->insert('img/watermark.png');
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

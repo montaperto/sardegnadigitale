@@ -59,6 +59,9 @@
                             </div>
                         </div>
 
+                        <div ckass="form-group">
+                            <input type="file" name="image" />
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
