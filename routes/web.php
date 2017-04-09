@@ -23,6 +23,9 @@ Route::get('/', 'Find@index');
 Route::get('places', 'Find@index');
 Route::get('place/{id}', 'Find@place');
 
+Route::get('profile', 'Account@index');
+
+
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/home', 'HomeController@index');

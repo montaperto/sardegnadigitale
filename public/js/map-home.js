@@ -26,7 +26,7 @@
           bounds.extend(new google.maps.LatLng(places[i].place_latitude, places[i].place_longitude));
 
           if(flag == 0){
-            var marker = createMarker(i, places[i]);
+            var marker = createMarker(places[i]);
           }          
         }
 
@@ -42,16 +42,23 @@
   }
 
         // Adds a marker to the map and push to the array.
-      function createMarker(i, place) {
+      function createMarker(place) {
 
           var location = new google.maps.LatLng(place.place_latitude, place.place_longitude)
+
+          var icon = {
+              url: '/img/icons/marker_1.png', // url
+              scaledSize: new google.maps.Size(55, 55), // scaled size
+          };
 
           var marker = new google.maps.Marker({
             position: location,
             map: map,
-            label: labels[i % labels.length]
+            icon: icon,
           });
           markers.push(marker);
+
+          console.log(place.place_name);
           
           var contentString = "<div class='col-xs-12'>" +
           "<div class='thumbnail'>" +
@@ -64,12 +71,13 @@
           "</div>" +
         "</div>";
 
-         infowindow = new google.maps.InfoWindow({
+         var infowindow = new google.maps.InfoWindow({
             content: contentString,
             maxWidth: 200,
             maxHeight: 200,
             paddingRight: 0,
           });
+
           marker.addListener('click', function() {
             infowindow.open(map, marker);
           });

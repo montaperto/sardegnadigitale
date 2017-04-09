@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model {
     // your code
-    protected $table = 'sd_users';
+    protected $table = 'users';
 
 
 
