@@ -5,15 +5,25 @@
       <div class="row text-center">
         <h2>{{ $place->place_name }}</h2>
         <p>
-          <input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false">
+          <input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="4.5">
         </p>
         <p>
 
-          <b>20</b> users have visited this place<br>
-          <b>72</b> users are interested about it
+          <b>{{ $place->numVisits }}</b> users have visited this place<br>
+          <b>{{ $place->numInterests }}</b> users are interested about it
         </p>
-        <label class="btn btn-primary" data-toggle="modal" data-target="#markAsVisitedModal">Mark as visited</label>
-        <label class="btn btn-primary">Mark as interesting</label>
+        <!--<label class="btn btn-primary" id="visitedButton" data-toggle="modal" data-target="#markAsVisitedModal">Mark as visited</label>-->
+        @if ($place->userVisit === 0)
+            <label class="btn btn-primary" id="visitedButton" onclick="markAsVisited({{ $place->place_id }});">Mark as visited</label>
+        @else
+            <label class="btn btn-success" id="visitedButton" onclick="markAsVisited({{ $place->place_id }});">Visited <panc class='glyphicon glyphicon-ok'></span></label>
+        @endif
+
+        @if ($place->userInterest === 0)
+            <label class="btn btn-primary" id="interestButton" onclick="markAsInterested({{ $place->place_id }});">Mark as interesting</label>
+        @else
+            <label class="btn btn-success" id="interestButton" onclick="markAsInterested({{ $place->place_id }});">Interested <panc class='glyphicon glyphicon-eye-open'></span></label>
+        @endif
       </div>
 
       <div class="row">
@@ -37,7 +47,7 @@
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
             <div style="padding-bottom: 20px"></div>
-
+            <!--
             <div class="col-xs-6 col-md-4 col-lg-3">
               <div class="thumbnail">
                 <img src="img/places/1.jpg" alt="Cala Goloritze">
@@ -48,27 +58,33 @@
                 </div>
               </div>
             </div>
+            -->
+            {!! Form::open(
+                array(
+                    'route' => ['place.review', $place->place_id], 
+                    'class' => 'form', 
+                    'novalidate' => 'novalidate', 
+                    'files' => true)) !!}
 
-            <div class="col-xs-6 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="img/places/3.jpg" alt="Cala Coticcio">
-                <div class="caption">
-                  <h5>Cala Coticcio</h5>
-                  <p>Beach</p>
-                  <p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-                </div>
-              </div>
+            <div class="form-group">
+                {!! Form::label('Product Name') !!}
+                {!! Form::text('name', null, array('placeholder'=>'Chess Board')) !!}
             </div>
 
-            <div class="col-xs-6 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="img/places/4.jpg" alt="Stintino">
-                <div class="caption">
-                  <h5>Stintino</h5>
-                  <p>Beach</p>
-                  <p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
-                </div>
-              </div>
+            <div class="form-group">
+                {!! Form::label('Product SKU') !!}
+                {!! Form::text('sku', null, array('placeholder'=>'1234')) !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('Product Image') !!}
+                {!! Form::file('image', null) !!}
+            </div>
+
+            <div class="form-group">
+                {!! Form::submit('Create Product!') !!}
+            </div>
+            {!! Form::close() !!}
             </div>
 
 
@@ -151,6 +167,58 @@
 
 
     </div>
+
+
+    <script type="text/javascript">
+      function markAsInterested(place_id){
+        //console.log("place_id: "+place_id);
+        $.ajax({
+          url: "/markasinterested",
+          type: "get",
+          data: {'place_id': place_id} ,
+          success: function (response) {
+             console.log("success");
+             if(document.getElementById("interestButton").classList == 'btn btn-primary') {
+                document.getElementById("interestButton").classList.add('btn-success');
+                document.getElementById("interestButton").classList.remove('btn-primary');
+                document.getElementById("interestButton").innerHTML = "Interested <panc class='glyphicon glyphicon-eye-open'></span>";
+             } else {
+                document.getElementById("interestButton").classList.add('btn-primary');
+                document.getElementById("interestButton").classList.remove('btn-success');
+                document.getElementById("interestButton").innerHTML = "Mark as interesting";
+             }
+             
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log("Error interest");
+          }
+        });
+      }
+
+      function markAsVisited(place_id){
+        //console.log("place_id: "+place_id);
+        $.ajax({
+          url: "/markasvisited",
+          type: "get",
+          data: {'place_id': place_id} ,
+          success: function (response) {
+             console.log("success");
+             if(document.getElementById("visitedButton").classList == 'btn btn-primary') {
+                document.getElementById("visitedButton").classList.add('btn-success');
+                document.getElementById("visitedButton").classList.remove('btn-primary');
+                document.getElementById("visitedButton").innerHTML = "Visited <panc class='glyphicon glyphicon-ok'></span>";
+             } else {
+                document.getElementById("visitedButton").classList.add('btn-primary');
+                document.getElementById("visitedButton").classList.remove('btn-success');
+                document.getElementById("visitedButton").innerHTML = "Mark as visited";
+             }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+             console.log("Error interest");
+          }
+        });
+      }
+    </script>
 
 
 @include('assets.footer')

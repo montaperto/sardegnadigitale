@@ -10,7 +10,7 @@
     <p><b>{{ $userInfo['name'] }}</b></p>
     <p><label class="btn btn-primary">Follow</label></p>
     <p><b>12</b> followers | <b>9</b> following</p>
-    <p><b>21</b> places visited | <b>53</b> interests</p>
+    <p><b>{{ $userInfo->numVisits }}</b> places visited | <b>{{ $userInfo->numInterests }}</b> interests</p>
   </div>
 
   <div style="margin-top: 20px;">

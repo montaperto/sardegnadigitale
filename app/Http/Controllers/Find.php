@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class Find extends Controller
 {
@@ -24,6 +25,21 @@ class Find extends Controller
     public function place($id)
     {
         $place = \App\Models\Place::where('place_id', $id)->first();
+
+        $userInfo = \App\User::find(Auth::id());
+
+        //if the current user exist and he has visited/interested about it
+        if(!empty($userInfo['id'])) {
+            $place->userInterest = \App\Models\Place::tellMeIfUserIsInterested($id, $userInfo['id']);
+            $place->userVisit = \App\Models\Place::tellMeIfUserHasVisited($id, $userInfo['id']);
+        } else {
+            $place->userInterest = 0;
+            $place->userVisit = 0;
+        }
+
+        $place->numInterests =  \App\Models\Place::getTotalInterestsByPlace($id);
+        $place->numVisits =  \App\Models\Place::getTotalVisitsByPlace($id);        
+
         return view('place/place', array('place' => $place));
     }
 

@@ -19,8 +19,13 @@ class Account extends Controller
     public function index()
     {
         $userInfo = \App\User::find(Auth::id());
+
+        //todo -> if user not exist redirect to login page
+
         $interests = \App\Models\Place::getInterestedPlacesByUserId($userInfo['id']);
         $visits = \App\Models\Place::getVisitedPlacesByUserId($userInfo['id']);
+        $userInfo->numInterests = count($interests);
+        $userInfo->numVisits = count($visits);
         
     	return view('account/account', array('userInfo' => $userInfo, 'interests' => $interests, 'visits' => $visits));
     }

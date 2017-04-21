@@ -32,7 +32,9 @@
             <div class="caption">
               <h5>{{ $place->place_name }}</h5>
               <p>Beach</p>
-              <p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+              <font size="1px">
+              <p><input style="font-size: 0px" id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="4.5" data-size="xs"></p>
+              </font>
             </div>
           </div>
         </div>
