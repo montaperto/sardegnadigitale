@@ -38,7 +38,8 @@ class Find extends Controller
         }
 
         $place->numInterests =  \App\Models\Place::getTotalInterestsByPlace($id);
-        $place->numVisits =  \App\Models\Place::getTotalVisitsByPlace($id);        
+        $place->numVisits =  \App\Models\Place::getTotalVisitsByPlace($id);
+        $place->images = \App\Models\Image::getImagesByPlaceId($place->place_id);
 
         return view('place/place', array('place' => $place));
     }

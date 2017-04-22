@@ -23,10 +23,14 @@ Route::get('/', 'Find@index');
 Route::get('places', 'Find@index');
 Route::get('place/{id}', 'Find@place');
 
-Route::patch('/place/{id}',[
-    'as' => 'place.review',
-    'uses' => 'Find@place'
-]);
+
+Route::post('imageUploadForm', 'Place@storeImage' );
+
+
+
+
+
+
 //Route::get('place/markasinterested{place_id}', 'Place@markasinterested');
 
 /*

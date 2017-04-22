@@ -8,7 +8,6 @@
           <input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="4.5">
         </p>
         <p>
-
           <b>{{ $place->numVisits }}</b> users have visited this place<br>
           <b>{{ $place->numInterests }}</b> users are interested about it
         </p>
@@ -26,6 +25,7 @@
         @endif
       </div>
 
+      <!--
       <div class="row">
         <div class="col-xs-12 col-md-6">
           <b>Type:</b> Beach<br>
@@ -35,6 +35,7 @@
         <div class="col-xs-12 col-md-6">
         </div>
       </div>
+      -->
 
       <div style="margin-top: 20px;">
         <ul class="nav nav-tabs">
@@ -47,45 +48,47 @@
         <div class="tab-content">
           <div id="home" class="tab-pane fade in active">
             <div style="padding-bottom: 20px"></div>
-            <!--
-            <div class="col-xs-6 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="img/places/1.jpg" alt="Cala Goloritze">
-                <div class="caption">
-                  <h5>Cala Goloritzè</h5>
-                  <p>Beach</p>
-                  <p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+
+            
+
+            <div class="col-xs-6 coll-md-4 col-lg-3">
+              <div class="thumbnail text-center">
+                {!! Form::open(['action'=>'Place@storeImage', 'files'=>true, 'class'=>'form-horizontal']) !!}
+                <div class="form-group" style="padding-top: 10px;">
+                  <div class="col-sm-10">
+                    <label class="btn btn-primary">
+                      {!! Form::file('image', ['class' => 'hidden']) !!}
+                      Select image
+                    </label>
+
+
+                    {!! Form::hidden('place_id', $place->place_id) !!}
+                  </div>
                 </div>
+                
+                <div class="form-group"> 
+                  <div class="col-sm-10">
+                    {{ Form::submit('Upload image', array('class' => 'btn btn-primary')) }}
+                  </div>
+                </div>
+
               </div>
             </div>
-            -->
-            {!! Form::open(
-                array(
-                    'route' => ['place.review', $place->place_id], 
-                    'class' => 'form', 
-                    'novalidate' => 'novalidate', 
-                    'files' => true)) !!}
 
-            <div class="form-group">
-                {!! Form::label('Product Name') !!}
-                {!! Form::text('name', null, array('placeholder'=>'Chess Board')) !!}
-            </div>
 
-            <div class="form-group">
-                {!! Form::label('Product SKU') !!}
-                {!! Form::text('sku', null, array('placeholder'=>'1234')) !!}
-            </div>
 
-            <div class="form-group">
-                {!! Form::label('Product Image') !!}
-                {!! Form::file('image', null) !!}
-            </div>
+            @foreach ($place->images as $image)   
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                  <div class="thumbnail">
+                    <img src="{{ $image->image_thumb }}" alt="{{ $place->place_name }}" width="100%">
+                    <div class="caption">
+                        <span class="glyphicon glyphicon-heart text-danger"></span> 12
+                    </div>
+                  </div>
+                </div>
+            @endforeach
 
-            <div class="form-group">
-                {!! Form::submit('Create Product!') !!}
-            </div>
-            {!! Form::close() !!}
-            </div>
+
 
 
           </div>
