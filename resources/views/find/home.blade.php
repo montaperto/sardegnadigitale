@@ -28,7 +28,7 @@
   @foreach($places as $place)
         <div class="col-xs-6 col-md-4 col-lg-3">
           <div class="thumbnail">
-            <a href="place/{{ $place->place_id }}"><img src="img/places/no_photo.jpg" alt="{{ $place->place_name }}"></a>
+            <a href="place/{{ $place->place_id }}"><img src="{{ $place->place_cover_img }}" alt="{{ $place->place_name }}" width="100%"></a>
             <div class="caption">
               <h5>{{ $place->place_name }}</h5>
               <p>Beach</p>

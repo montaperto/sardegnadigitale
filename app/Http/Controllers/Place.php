@@ -67,7 +67,8 @@ class Place extends Controller
 
             $image = Input::file('image');
             $time = time();
-            $ext = $image->getClientOriginalExtension();
+            //$ext = $image->getClientOriginalExtension();
+            $ext = "jpg";
 
             $original  = $time . '.' . $ext;
             $thumb = $time . '_thumb.' . $ext;
@@ -103,6 +104,8 @@ class Place extends Controller
             $id = \App\Models\Image::saveImage($place_id, $path_original_partial, $path_thumb_partial);
             
         }
+
+        return redirect('place/' . $place_id);
     }
 
 

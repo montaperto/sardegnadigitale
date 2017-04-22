@@ -9,17 +9,11 @@ class Image extends Model {
 
     public static function getImagesByPlaceId($id)
     {
-    	$images = array();
     	$rows = \DB::table('sd_images')
             ->select('sd_images.*')
             ->where('image_item_id', '=', $id)
             ->get();
-
-		foreach ($rows as $row) {
-		    $images[] = $row;
-		}  
-
-        return $images;
+        return $rows;
     }
 
 
@@ -35,6 +29,16 @@ class Image extends Model {
         ]);
 
         return $id;
+    }
+
+    public static function getCoverImageByPlaceId($place_id)
+    {
+        $row = \DB::table('sd_images')
+            ->select('sd_images.*')
+            ->where('image_item_id', '=', $place_id)
+            ->limit(1)
+            ->get();
+        return $row;
     }
 
   

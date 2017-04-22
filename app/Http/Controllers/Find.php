@@ -18,6 +18,16 @@ class Find extends Controller
     public function index()
     {
         $places = \App\Models\Place::all();
+        foreach ($places as $place) {
+            $image = \App\Models\Image::getCoverImageByPlaceId($place->place_id);
+            if(empty($image[0]->image_thumb)) {
+                $place->place_cover_img = 'img/places/no_photo.jpg';
+            } else {
+                $place->place_cover_img = $image[0]->image_thumb;
+            }
+        }
+
+
     	return view('find/home', array('places' => $places));
     }
 
