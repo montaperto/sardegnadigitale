@@ -1,8 +1,6 @@
 @include('assets.header')
 
- 
-
-<div class="row" style="padding-bottom: 20px; padding-top: 60px; padding-left:20px; padding-right:20px; background-color: WHITESMOKE;">
+<div class="row" style="padding-bottom: 20px; padding-top: 60px; background-color: WHITESMOKE;">
 
   <div class="col-xs-12 col-lg-3" style="padding-top: 10px;">
     <!-- ajax call with autocomplete -->
@@ -25,6 +23,7 @@
       <option>Shops</option>
     </select>
   </div>
+
   <div class="col-xs-5 col-lg-2" style="padding-top: 10px;">
     <select class="form-control">
       <option>Order by</option>
@@ -33,16 +32,15 @@
       <option>Most favourited</option>
     </select>
   </div>
+
   <div class="col-xs-2 col-lg-2" style="padding-top: 10px;">
     <label class="btn btn-primary form-control"><span class="glyphicon glyphicon-search"></span></label>
   </div>
+
 </div>
 
 
 <div class="container" style="padding-top: 20px;"> 
-
-
-
 
   @foreach($places as $place)
         <div class="col-xs-6 col-md-4 col-lg-3">
@@ -58,7 +56,6 @@
           </div>
         </div>
   @endforeach
-
 
   </div>
 
@@ -88,8 +85,6 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKdlgHP0S40CDTGqUFAPCEogL7MPpYf_E&callback=initMap">
 </script>
-
-<script src="js/bootstrap-slider.js"></script>
 <script type="text/javascript">
 function showSliderValue(){
   document.getElementById("radius").innerHTML = ' ' + document.getElementById("myRange").value + ' km';
@@ -98,26 +93,3 @@ showSliderValue();
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
