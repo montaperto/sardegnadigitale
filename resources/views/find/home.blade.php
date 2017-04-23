@@ -49,9 +49,9 @@
             <div class="caption">
               <h5>{{ $place->place_name }}</h5>
               <p>Beach</p>
-              <font size="1px">
-              <p><input style="font-size: 0px" id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="4.5" data-size="xs"></p>
-              </font>
+
+              <p><input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="{{ $place->place_rating }}" data-size="xs"></p>
+
             </div>
           </div>
         </div>
@@ -77,6 +77,10 @@
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var flag = 0;
     var locations = new Array();
+
+
+    $('.rating-loading').rating({displayOnly: true, step: 0.5});
+
 </script>
 
 <script src="js/map-home.js"></script>

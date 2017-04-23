@@ -5,7 +5,7 @@
       <div class="row text-center">
         <h2>{{ $place->place_name }}</h2>
         <p>
-          <input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="4.5">
+          <input id="input-4" name="input-4" class="rating rating-loading" data-show-clear="false" data-show-caption="false" value="{{ $place->place_rating }}">
         </p>
         <p>
           <b>{{ $place->numVisits }}</b> users have visited this place<br>
@@ -75,12 +75,10 @@
               </div>
             </div>
 
-
-
             @foreach ($place->images as $image)   
                 <div class="col-xs-6 col-md-4 col-lg-3">
                   <div class="thumbnail">
-                    <img src="{{ $image->image_thumb }}" alt="{{ $place->place_name }}" width="100%">
+                    <img src="{{ $image->image_thumb }}" alt="{{ $place->place_name }}" width="100%" data-toggle="modal" data-target=".bs-example-modal-lg">
                     <div class="caption">
                         <span class="glyphicon glyphicon-heart text-danger"></span> 12
                     </div>
@@ -88,10 +86,38 @@
                 </div>
             @endforeach
 
+            <div class="container text-center">
+              <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner">
 
+                        @foreach ($place->images as $image)
+                            <div class="item @if($loop->iteration == 1) active @endif">
+                              <img class="img-responsive" src="{{ $image->image_original }}" alt="{{ $place->place_name }}" width="1200px">
+                              <div class="carousel-caption">
+                                Andrea Montaperto
+                              </div>
+                            </div>
+                        @endforeach
 
-
+                      </div>
+                      <!-- Controls -->
+                      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </a>
+                      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div id="menu1" class="tab-pane fade">
             <div style="padding-bottom: 20px"></div>
 
@@ -173,6 +199,9 @@
 
 
     <script type="text/javascript">
+
+    $('#input-4').rating({displayOnly: true, step: 0.5});
+
       function markAsInterested(place_id){
         //console.log("place_id: "+place_id);
         $.ajax({
