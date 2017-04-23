@@ -54,57 +54,51 @@ class Place extends Controller
             'image' => 'required'
         ]);
 
-        //$image->title = $request->title;
-        //$image->description = $request->description;
-
         $place_id = $request->place_id;
+        $userInfo = \App\User::find(Auth::id());
+        if(!empty($userInfo['id'])) {
 
-        //echo $place_id;
-        //die();
+            if($request->hasFile('image')) {
 
+                $image = Input::file('image');
+                $time = time();
+                //$ext = $image->getClientOriginalExtension();
+                $ext = "jpg";
 
-        if($request->hasFile('image')) {
+                $original  = $time . '.' . $ext;
+                $thumb = $time . '_thumb.' . $ext;
 
-            $image = Input::file('image');
-            $time = time();
-            //$ext = $image->getClientOriginalExtension();
-            $ext = "jpg";
+                $path = public_path('img/places/' . $place_id);
 
-            $original  = $time . '.' . $ext;
-            $thumb = $time . '_thumb.' . $ext;
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
 
-            $path = public_path('img/places/' . $place_id);
+                $path_thumb = public_path('img/places/' . $place_id . '/' . $thumb);
+                $path_original = public_path('img/places/' . $place_id . '/' . $original);
 
-            if (!file_exists($path)) {
-                mkdir($path, 0755, true);
+                $path_thumb_partial = '/img/places/' . $place_id . '/' . $thumb;
+                $path_original_partial = '/img/places/' . $place_id . '/' . $original;
+
+                $size = getimagesize($image);
+                $width = $size[0];
+                $height = $size[1];
+
+                if($width > 700) {
+                    $height = 700 * $height / $width;
+                    $width = 700;
+                } else {
+                    $width = 700 * $width / $height;
+                    $height = 700;
+                }
+                //crop the image without strange dimension       
+                \Image::make($image->getRealPath())->fit(200, 200)->save($path_thumb);
+                \Image::make($image->getRealPath())->fit(intval($width), intval($height))->save($path_original);
+
+                $id = \App\Models\Image::saveImage($place_id, $path_original_partial, $path_thumb_partial);
+                
             }
-
-            $path_thumb = public_path('img/places/' . $place_id . '/' . $thumb);
-            $path_original = public_path('img/places/' . $place_id . '/' . $original);
-
-            $path_thumb_partial = '/img/places/' . $place_id . '/' . $thumb;
-            $path_original_partial = '/img/places/' . $place_id . '/' . $original;
-
-            $size = getimagesize($image);
-            $width = $size[0];
-            $height = $size[1];
-
-            if($width > 600) {
-                $height = 600 * $height / $width;
-                $width = 600;
-            } else {
-                $width = 600 * $width / $height;
-                $height = 600;
-            }
-
-            //crop the image without strange dimension       
-            \Image::make($image->getRealPath())->fit(200, 200)->save($path_thumb);
-            \Image::make($image->getRealPath())->fit(intval($width), intval($height))->save($path_original);
-
-            $id = \App\Models\Image::saveImage($place_id, $path_original_partial, $path_thumb_partial);
-            
         }
-
         return redirect('place/' . $place_id);
     }
 

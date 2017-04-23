@@ -27,10 +27,10 @@
         @foreach($visits as $visit)
 	        <div class="col-xs-6 col-md-4 col-lg-3">
 	          <div class="thumbnail">
-	            <a href="/place/{{ $visit->place_id }}"><img src="img/places/no_photo.jpg" alt="{{ $visit->place_name }}"></a>
+	            <a href="/place/{{ $visit->place_id }}"><img src="{{ $visit->place_cover_img }}" alt="{{ $visit->place_name }}" width="100%"></a>
 	            <div class="caption">
 	              <h5>{{ $visit->place_name }}</h5>
-	              <p>*Type*</p>
+	              <p>Beach</p>
 	              <p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p>
 	            </div>
 	          </div>
@@ -45,10 +45,10 @@
         @foreach($interests as $interest)
 	        <div class="col-xs-6 col-md-4 col-lg-3">
 	          <div class="thumbnail">
-	            <a href="/place/{{ $interest->place_id }}"><img src="img/places/no_photo.jpg" alt="{{ $interest->place_name }}"></a>
+	            <a href="/place/{{ $interest->place_id }}"><img src="{{ $interest->place_cover_img }}" alt="{{ $interest->place_name }}" width="100%"></a>
 	            <div class="caption">
 	              <h5>{{ $interest->place_name }}</h5>
-	              <p>*Type*</p>
+	              <p>Beach</p>
 	              <p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p>
 	            </div>
 	          </div>

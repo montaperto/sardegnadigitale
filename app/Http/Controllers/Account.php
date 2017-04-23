@@ -23,7 +23,25 @@ class Account extends Controller
         //todo -> if user not exist redirect to login page
 
         $interests = \App\Models\Place::getInterestedPlacesByUserId($userInfo['id']);
+        foreach ($interests as $interest) {
+            $image = \App\Models\Image::getCoverImageByPlaceId($interest->place_id);
+            if(empty($image[0]->image_thumb)) {
+                $interest->place_cover_img = 'img/places/no_photo.jpg';
+            } else {
+                $interest->place_cover_img = $image[0]->image_thumb;
+            }
+        }
+
         $visits = \App\Models\Place::getVisitedPlacesByUserId($userInfo['id']);
+        foreach ($visits as $visit) {
+            $image = \App\Models\Image::getCoverImageByPlaceId($visit->place_id);
+            if(empty($image[0]->image_thumb)) {
+                $visit->place_cover_img = 'img/places/no_photo.jpg';
+            } else {
+                $visit->place_cover_img = $image[0]->image_thumb;
+            }
+        }
+
         $userInfo->numInterests = count($interests);
         $userInfo->numVisits = count($visits);
         
